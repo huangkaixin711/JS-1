@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京东轮播图</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="banner">
+        <!-- 轮播图的内容 -->
+        <ul class="content">
+            <li>
+                <a href="#"><img src="img/1.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="img/2.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="img/3.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="img/4.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="img/5.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="img/6.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="img/7.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="img/8.jpg" alt=""></a>
+            </li>
+        </ul>
+        <!-- 左右箭头 -->
+        <div class="button">
+            <div class="left">
+                <span class="icon1"><</span></div>
+            <div class="right"><span class="icon2">></span></div>
+        </div>
+        <!-- 轮播图指示点 -->
+        <ul class="dots">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+</body>
+<script src="js/jquery.js"></script>
+<script>
+    //初始化
+    var index = 0;
+    var t;
+    var length = $('.content li').length;
+
+    $('.content li').eq(index).addClass('opa1');
+    $('.dots li').eq(index).addClass('opa2');
+
+    //自动切换图片
+    t = setInterval(autoMove, 3000);
+
+    function autoMove() {
+        index++;
+        if (index >= length) {
+            index = 0;
+        }
+        changeTo1(index);
+        changeTo2(index);
+    }
+
+    function changeTo1(index) {
+        $('.content li').eq(index).addClass('opa1').siblings().removeClass('opa1');
+    }
+
+    function changeTo2(index) {
+        $('.dots li').eq(index).addClass('opa2').siblings().removeClass('opa2');
+    }
+    $('.left').click(function() {
+        clearInterval(t);
+        index--;
+        if (index < 0) {
+            index = length - 1;
+        }
+        changeTo1(index);
+        changeTo2(index);
+    });
+    $('.right').click(function() {
+        clearInterval(t);
+        index++;
+        if (index >= length) index = 0;
+        changeTo1(index);
+        changeTo2(index);
+    });
+    $(".content li").on('mouseenter', function() {
+        clearInterval(t);
+    })
+    $(".content li").on('mouseout', function() {
+        t = setInterval(autoMove, 3000);
+    })
+</script>
+
+</html>
